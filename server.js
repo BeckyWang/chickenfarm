@@ -1,7 +1,7 @@
 const http = require('http');
 const Koa = require('koa');
 // const session = require('koa-session-minimal');
-// const redisStore = require('koa-redis');
+const fs = require('fs');
 const redis = require('redis');
 const bodyParser = require('koa-bodyparser');
 const xmlParser = require('koa-xml-body');
@@ -757,6 +757,23 @@ router
         }
         cxt.status = 200;
     })
+    //添加指定用户的提现账号, application/json, body信息: {alipay}
+    .post('/users/:wxId/alipay', async cxt => {
+        const {alipay} = cxt.request.body;
+        if(!alipay) {
+            cxt.body = {
+                info: '请把信息填全！'
+            }
+            cxt.status = 400;
+            return;
+        }
+        query(`
+            UPDATE db_chickenfarm.cf_user
+            SET alipay = '${alipay}'
+            WHERE wxid = '${cxt.params.wxId}'
+        `);
+        cxt.status = 200;
+    })
     //获取指定用户收货地址
     .get('/users/:wxId/address', async cxt => {
         const result = await query(`SELECT uid, count(*) as total FROM db_chickenfarm.cf_user WHERE wxid = "${cxt.params.wxId}"`);
@@ -1388,6 +1405,33 @@ router
             cxt.request.body.signature = sha1(objToQuerystring(cxt.request.body));
         }
         cxt.body = cxt.request.body;
+    })
+    .get('/video', cxt => {
+        const path = 'video/IMG_2283.MP4';
+        const stat = fs.statSync(path);
+        const fileSize = stat.size;
+        const range = cxt.request.headers.range;
+        if (range) {
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+            const chunksize = end - start + 1;
+            const file = fs.createReadStream(path, {
+                start,
+                end
+            });
+            cxt.response.set('Content-Range', `bytes ${start}-${end}/${fileSize}`);
+            cxt.response.set('Accept-Ranges', 'bytes');
+            cxt.response.set('Content-Length', chunksize);
+            cxt.response.set('Content-Type', 'video/mp4');
+            cxt.body = file.pipe(cxt.res);
+            cxt.status = 206;
+        } else {
+            cxt.response.set('Content-Length', fileSize);
+            cxt.response.set('Content-Type', 'video/mp4');
+            cxt.body = fs.createReadStream(path).pipe(cxt.res);
+            cxt.status = 200;
+        }
     });
 
 app

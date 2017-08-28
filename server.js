@@ -1157,6 +1157,33 @@ router
             }
         }
     })
+    //指定用户提现, body = {amount}  amount为 1.00 格式
+    .post('/users/:wxId/withdraw', async cxt => {
+        const {amount} = cxt.request.body;
+        const result = await query(`SELECT uid FROM db_chickenfarm.cf_user WHERE wxid = "${cxt.params.wxId}"`);
+        if(!result.length) {
+            cxt.body = 400;
+            return;
+        }
+        const {uid} = result[0];
+        const wealthList = await query(`
+            SELECT recordtype, iomoney
+            FROM db_chickenfarm.cf_wealth
+            WHERE uid = ${uid}
+        `);
+        const wealth = wealthList.reduce((rst, {recordtype, iomoney}) => recordtype ? (rst + iomoney) : (rst - iomoney), 0);
+        if(+wealth < +amount) {
+            cxt.body = 400;
+            return;
+        }
+        const date = new Date();
+        const datetime = `${date.getFullYear()}-${(date.getMonth() + 1 + '').padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        query(`
+            INSERT INTO db_chickenfarm.cf_wealth (uid, recorddatetime, recordtype, iomoney, iostate, paymenttype, ioput)
+            VALUES (${uid}, '${datetime}', 0, 0, 0, 2)
+        `);
+        cxt.status = 200;
+    })
     //获取指定用户的推荐客户列表 => [{uid, realname, totalEggs, curMonthEggs, totalChicken, curMonthChicken}]
     .get('/users/:wxId/customer', async cxt => {
         const result = await query(`SELECT uid FROM db_chickenfarm.cf_user WHERE wxid = "${cxt.params.wxId}"`);

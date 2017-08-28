@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { WingBlank, WhiteSpace, Icon, Button, Result, Flex, Toast } from 'antd-mobile';
 
-import { randomchar } from '../../unit/tool';
 import { getMyClients, getWXSignature, getJsapiTicket } from '../../unit/fetch';
 import Loading from '../public/Loading';
+import { randomchar } from '../../unit/tool';
 
 import styles from './styles';
 
@@ -49,7 +49,7 @@ class Client extends React.Component {
                 });
                 
                 wx.config({
-                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: 'wx20cc91f559b59b67', // 必填，公众号的唯一标识
                     timestamp, // 必填，生成签名的时间戳
                     nonceStr, // 必填，生成签名的随机串
@@ -59,7 +59,7 @@ class Client extends React.Component {
 
                 wx.ready(() => {
                     wx.onMenuShareTimeline({
-                        title: '土吉蛋——我的客户', // 分享标题
+                        title: '土吉蛋', // 分享标题
                         link: `http://www.chickenfarm.com.cn/weixin/toFarms.html?referrer=${openId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: 'http://www.chickenfarm.com.cn/weixin/image/logo.png', // 分享图标
                         success: res => { // 用户确认分享后执行的回调函数
@@ -68,7 +68,7 @@ class Client extends React.Component {
                     });
 
                     wx.onMenuShareAppMessage({
-                        title: '土吉蛋——我的客户', // 分享标题
+                        title: '土吉蛋', // 分享标题
                         link: `http://www.chickenfarm.com.cn/weixin/toFarms.html?referrer=${openId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: 'http://www.chickenfarm.com.cn/weixin/image/logo.png', // 分享图标
                         success: res => { // 用户确认分享后执行的回调函数                            
@@ -79,7 +79,7 @@ class Client extends React.Component {
             } catch(e) {
 
             }
-        })();
+        })(); 
     }
 
     render() {
@@ -139,7 +139,7 @@ class Client extends React.Component {
 	    		</div> : <Result
 	                img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
 	                title="提示"
-	                message="您还没有客户，可通过分享页面给朋友开发新客户！"
+	                message="您还没有客户，可通过开发新客户获得财富！"
 	            />}
             </div>
         );

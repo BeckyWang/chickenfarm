@@ -27,8 +27,9 @@ export function updateUser(info) {
 }
 
 //获取指定用户信息
-export function getUserInfo() {
-    return executeFetch(`${address.users}/${getOpenId()}/info`);
+export function getUserInfo(openId) {
+    let url = openId ? `${address.users}/${openId}/info` : `${address.users}/${getOpenId()}/info`;
+    return executeFetch(url);
 }
 
 //获取指定用户的推荐客户列表 => [{uid, realname, totalEggs, curMonthEggs, totalChicken, curMonthChicken}]

@@ -12,7 +12,7 @@ class PersonalCenter extends React.Component {
         super();
 
         this.state = {
-        	isUser: true,
+            isUser: true,
         	personalInfo: {},
             loading: true,
             error: false,
@@ -31,29 +31,37 @@ class PersonalCenter extends React.Component {
         	text: '我的地址',
         	link: '/weixin/cultivation/address/manage',
         }];
+
+        this.getUserInfo = this.getUserInfo.bind(this);
+    }
+
+    async getUserInfo(openId) {
+        try {
+            this.setState({
+                personalInfo: await getUserInfo(openId),
+                loading: false,
+            })
+        } catch(e) {
+            this.setState({
+                loading: false,
+                error: true,
+            })
+        }
     }
 
     componentWillMount() {
-    	if(this.props.isUser) {
-    		(async () => {
-	            try {
-	                this.setState({
-	                    personalInfo: await getUserInfo(),
-	                    loading: false,
-	                })
-	            } catch(e) {
-	                this.setState({
-	                    loading: false,
-	                    error: true,
-	                })
-	            }
-	        })();
-    	} else {
-    		this.setState({
-    			loading: false,
-    			isUser: false,
-    		});
+    	if(this.props.isUser && this.props.openId) {
+    		this.getUserInfo();
     	}
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.isUser !== this.props.isUser) {
+            nextProps.isUser ? this.getUserInfo(nextProps.openId) : this.setState({
+                loading: false,
+                isUser: false,
+            });        
+        }
     }
 
     render() {
@@ -70,6 +78,13 @@ class PersonalCenter extends React.Component {
             <WhiteSpace size='lg'/>
         </div>;
 
+        if(loading) {
+            return <div className={styles['personal-center-container']}>
+                { headerComponent }
+                <Loading tips='正在获取个人信息，请稍后...'/>
+            </div>;
+        }
+
         if(!isUser) {
     		return <div className={styles['personal-center-container']}>
                 { headerComponent }
@@ -82,13 +97,6 @@ class PersonalCenter extends React.Component {
             		<WhiteSpace size='lg'/>
 	        		<Button type="primary" onClick={() => {this.props.history.push('/weixin/cultivation/register')}}>去注册</Button>
                 </div>
-            </div>;
-    	}
-
-    	if(loading) {
-    		return <div className={styles['personal-center-container']}>
-                { headerComponent }
-                <Loading tips='正在获取个人信息，请稍后...'/>
             </div>;
     	}
 

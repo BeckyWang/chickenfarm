@@ -1,0 +1,28 @@
+@import '../../asserts/css/base';
+
+.farm-list {
+	font-size: 16px;
+
+	.list-header {
+		margin-bottom: 4%;
+	}
+	
+	.list-body {
+		overflow: auto;
+	}
+}
+
+.farm-item {
+	margin: 10px 5%;
+	width: 40%;
+	border-radius: 4px;
+
+	a {
+		font-size: 18px;
+		text-align: center;
+		display: block;
+		color: $primary-color-3;
+		height: 36px;
+		line-height: 36px;
+	}
+}

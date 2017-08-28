@@ -1,0 +1,36 @@
+@import '../../asserts/css/base';
+
+.adopt-protocol-container {
+	.protocol {
+		margin: 0;
+		padding: 10px 20px;
+		text-align: justify;
+	    white-space: pre-wrap;
+	    word-wrap: break-word;
+	    overflow: auto;
+	    font-size: 14px;
+	    color: $gray-color-5;
+	    line-height: 24px;
+	    text-indent: 28px;
+	    border: 0.02rem solid $gray-color-2;
+	    border: {
+	    	left: 0;
+	    	right: 0;
+	    };
+	}
+
+	.agree-selector {
+		label {
+			font-size: 16px;
+	    	color: $gray-color-4;
+		}
+	}
+}
+
+.submit-button {
+	margin: 10px 20px 0 20px;
+}
+
+.second-header {
+	color: $primary-color-3;
+}

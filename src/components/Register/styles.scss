@@ -1,0 +1,21 @@
+@import '../../asserts/css/base';
+
+.register-container {
+	.title {
+		font-size: 18px;
+		color: $primary-color-3;
+	}
+
+	.required {
+		color: #d22;
+		margin-left: 2px;
+	}
+
+	.submit-button {
+		margin-top: 20px;
+	}
+}
+
+.popup-title {
+	font-size: 14px;
+}

@@ -1,0 +1,96 @@
+@import '../../asserts/css/base';
+
+.personal-center-container {
+	.welcome-tip {
+		height: 70px;
+		line-height: 70px;
+		border-top: 0.02rem solid $gray-color-2;
+		font-size: 18px;
+		color: $gray-color-4;
+		padding-left: 40px;
+	}
+
+	.item {
+		padding: 20px;
+		display: inline-block;
+	}
+
+	.item-title {
+		color: $gray-color-4;
+		font-size: 16px;
+		margin-top: 10px;
+	}
+}
+
+.client-container {
+	.client-info {
+		overflow: scroll;
+	}
+	
+	.table-header {
+		span {
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			padding: 8px 0;
+			color: $primary-color-4;
+			white-space: pre-wrap;
+    		word-wrap: break-word;
+    		font-size: 14px;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+
+	.row {
+		span {
+			height: 24px;
+			line-height: 24px;
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			border-top: 0;
+			padding: 5px 0;
+			color: $gray-color-5;
+			font-size: 12px;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+}
+
+.wealth-container {
+	.wealth-info {
+		p {
+			font-size: 16px;
+			color: $primary-color-3;
+		}
+
+		.deposit {
+			color: $gray-color-5;
+		}
+	} 
+}
+
+.withdraw-container {
+	.withdraw-info {
+		margin: 0 15px;
+		padding: 20px;
+		background-color: #fff;
+		border-radius: 4px;
+		font-size: 14px;
+	} 
+
+	.account {
+		color: $primary-color-3;
+		margin-left: 20px;
+	}
+
+	.money {		
+		font-size: 14px;
+	}
+}

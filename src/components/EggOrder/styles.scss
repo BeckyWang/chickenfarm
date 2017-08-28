@@ -1,0 +1,111 @@
+@import '../../asserts/css/base';
+
+.button-group {
+	display: flex;
+	margin: 10px 20px 0 20px;
+	justify-content: space-around;
+}
+
+.button {
+	width: 30%;
+}
+
+.second-header {
+	display: flex;
+	justify-content: space-between;
+	color: $primary-color-3;
+	font-size: 16px;
+	border-bottom: 0.002rem solid $gray-color-2;
+	line-height: 30px;
+}
+
+.second-header-icon {
+	width: 20px;
+	height: 20px;
+	position: relative;
+	top: 4px;
+	left: 2px;
+	margin-right: 5px;
+}
+
+.egg-order-container {
+	.order-title {
+		text-align: center;
+		margin-top: 8px;
+		color: $primary-color-3;
+	}
+
+	.order-info {
+		overflow: scroll;
+	}
+
+	.order-item {
+		margin-top: 15px;
+		.info {
+			display: flex;
+			justify-content: space-between;
+			margin: 0 20px 8px 20px;
+			color: $gray-color-5;
+		}
+	}
+
+	.table-header {
+		span {
+			height: 28px;
+			line-height: 28px;
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			padding: 8px 0;
+			color: $primary-color-4;
+			white-space: pre-wrap;
+    		word-wrap: break-word;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+
+	.row {
+		span {
+			height: 24px;
+			line-height: 24px;
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			border-top: 0;
+			padding: 5px 0;
+			color: $gray-color-5;
+			font-size: 12px;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+}
+
+.egg-pay-container {
+	.no-address {
+		font-size: 14px;
+		color: $gray-color-4;
+		text-align: center;
+	}
+
+	.address-title {
+		padding-bottom: 5px;
+		border-bottom: 0.002rem solid $gray-color-2;
+		color: $primary-color-2;
+	}
+
+	.address-info {
+		line-height: 22px;
+		letter-spacing: 1px;
+	}
+
+	.logistics-title {
+		font-size: 16px;
+		color: $primary-color-2;
+	}
+}

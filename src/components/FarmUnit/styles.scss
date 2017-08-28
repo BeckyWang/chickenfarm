@@ -1,0 +1,145 @@
+@import '../../asserts/css/base';
+
+.unit-list {
+	font-size: 16px;
+
+	.farm-name {
+		color: $primary-color-3;
+	}
+
+	.list-body {
+		overflow: auto;
+	}
+}
+
+.unit-item {
+	margin: 10px 3%;
+	width: 27%;
+	border-radius: 4px;
+
+	a {
+		font-size: 18px;
+		text-align: center;
+		display: block;
+		color: $primary-color-3;
+		height: 36px;
+		line-height: 36px;
+	}
+}
+
+.unit-view {
+	.chicken-item {
+		padding: 10px 15px;
+		border-bottom: 0.002rem solid $gray-color-3;
+		font-size: 14px;
+
+		div {
+			height: 20px;
+			line-height: 20px;
+		}
+
+		.title {
+			padding-bottom: 5px;
+			border-bottom: 0.002rem solid $gray-color-2;
+			color: $primary-color-2;
+		}
+
+		.info {
+			margin-top: 5px;
+		}
+	}
+
+	.egg-search {
+		.title {
+			margin: 10px 0;
+			font-size: 16px;
+			color: $primary-color-3;
+		}
+
+		.title-icon {
+			position: relative;
+			top: 4px;
+		}
+
+		.date-picker {
+			width: 85%;			
+			padding: 8px;
+		}
+
+		.picker-body {
+			border-radius: 4px;
+			min-height: 0;
+			
+			>div {
+				min-height: 0;
+
+				>div {
+					padding: 5px 0;
+					font-size: 14px;
+				}
+
+				div:last-child {
+					padding: 0;
+				}
+			}
+		}
+
+		.search-button {
+			width: 15%;
+			font-size: 16px;
+			color: $primary-color-3;
+			line-height: 30px;
+			text-align: center;
+		}
+	}
+}
+
+.egg-list {
+	.table-body {
+		overflow: scroll;
+	}
+
+	.table-header {
+		span {
+			height: 28px;
+			line-height: 28px;
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			padding: 8px 0;
+			color: $primary-color-4;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+
+	.egg-item {
+		span {
+			height: 24px;
+			line-height: 24px;
+			text-align: center;
+			border: 0.02rem solid $gray-color-2;
+			border-left: 0;
+			border-top: 0;
+			padding: 5px 0;
+			color: $gray-color-5;
+			font-size: 12px;
+		}
+
+		span:last-child {
+			border-right: 0;
+		}
+	}
+
+	.footer-tip {
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		font-size: 14px;
+		text-align: center;
+		color: $primary-color-3;
+		line-height: 20px;
+	}
+}

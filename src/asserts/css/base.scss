@@ -1,0 +1,63 @@
+$primary-color-1: #75DCAD;
+$primary-color-2: #49CA8F;
+$primary-color-3: #28BB78;
+$primary-color-4: #03B162;
+$primary-color-5: #008649;
+
+$gray-color-1: #F7F7F7;
+$gray-color-2: #DCDCDC;
+$gray-color-3: #B1B1B1;
+$gray-color-4: #858585;
+$gray-color-5: #5A5A5A;
+$gray-color-6: #1D1D1D;
+
+.error-tip {
+	width: 40px;
+	height: 40px;
+	background-color: transparent;
+}
+
+.public-header {
+	display: flex;
+	justify-content: space-between;
+	color: $primary-color-3;
+	font-size: 18px;
+
+	.back-icon {
+		width: 40px;
+	}
+
+	.extra-operation {
+		font-size: 16px;
+		margin-top: 2px;
+		color: $primary-color-3;
+	}
+}
+
+.background-gray {
+	background-color: $gray-color-1;
+}
+
+.color-highlight {
+	color: $primary-color-4;
+}
+
+.popup-title {
+	font-size: 14px;
+}
+
+.font-14 {
+	font-size: 14px;
+}
+
+.font-16 {
+	font-size: 16px;
+}
+
+.width-40 {
+	width: 40px;
+}
+
+.color-gray {
+	color: $gray-color-3;
+}

@@ -1,0 +1,16 @@
+@import '../../asserts/css/base';
+
+.footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	border-top: 0.002rem solid $gray-color-3;
+
+	.button {
+		font-size: 16px;
+		text-align: center;
+		padding: 0 10px;
+		height: 36px;
+		line-height: 36px;
+	}
+}

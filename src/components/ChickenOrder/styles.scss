@@ -1,0 +1,39 @@
+@import '../../asserts/css/base';
+
+.chicken-order-container {
+	.order-info {
+		border-top: 0.02rem solid $gray-color-2;
+	}
+
+	.no-address {
+		font-size: 14px;
+		color: $gray-color-4;
+		text-align: center;
+	}
+
+	.title {
+		padding-bottom: 5px;
+		border-bottom: 0.002rem solid $gray-color-2;
+		color: $primary-color-2;
+	}
+
+	.address {
+		line-height: 22px;
+		letter-spacing: 1px;
+	}
+
+	.logistics-title {
+		font-size: 16px;
+		color: $primary-color-2;
+	}
+
+	.button-group {
+		display: flex;
+		margin: 10px 20px 0 20px;
+		justify-content: space-around;
+	}
+
+	.button {
+		width: 20%;
+	}
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { WingBlank, WhiteSpace, Icon, Button, Result, Modal, InputItem, List, Toast } from 'antd-mobile';
 
-import { getUserInfo } from '../../unit/fetch';
+import { getUserInfo, updateAlipay } from '../../unit/fetch';
 import Loading from '../public/Loading';
 
 import styles from './styles';
@@ -31,7 +31,7 @@ class Withdraw extends React.Component {
 				
 				this.setState({
                     loading: false,
-                    alipay: '123',
+                    alipay,
                 })               
             } catch(e) {
                 this.setState({
@@ -48,7 +48,10 @@ class Withdraw extends React.Component {
 			{
 				text: '确定',
 				onPress: async value => {
-
+                    await updateAlipay({alipay: value});
+                    this.setState({
+                        alipay: value,
+                    });
 				},
 			},
 		], 'default', null, ['请输入您的微信账号'])
@@ -134,9 +137,9 @@ class Withdraw extends React.Component {
 		                message="您的提现账户信息还未填写完整，请先补全账户信息。"
 		            />
             		<WhiteSpace size='lg'/>
-					<Button type="ghost" onClick={() => this.props.history.goBack()}>取消</Button>
+                    <Button type="primary" onClick={this.toComplete}>补全信息</Button>
             		<WhiteSpace size='lg'/>
-	        		<Button type="primary" onClick={this.toComplete}>补全信息</Button>
+                    <Button type="ghost" onClick={() => this.props.history.goBack()}>取消</Button>
 	            </div>) }
             </div>
         );

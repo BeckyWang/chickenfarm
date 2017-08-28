@@ -40,6 +40,28 @@ export function getMyClients() {
 export function getMyTreasure() {
     return executeFetch(`${address.users}/${getOpenId()}/wealth`);
 }
+
+//添加指定用户的提现账号, application/json, body信息: {alipay}
+export function updateAlipay(info) {
+    return executeFetch(`${address.users}/${getOpenId()}/alipay`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info)
+    });
+}
+
+//推荐 path: wxId => 本人openId,  body: { referrerId } //推荐人openId
+export function addReferrer(info) {
+    return executeFetch(`${address.users}/${getOpenId()}/recommend`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info)
+    });
+}
 /***************************************************/
 
 

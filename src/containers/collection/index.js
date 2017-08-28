@@ -31,7 +31,7 @@ const mapStateToProps = state => {
         isUser: state.get('isUser'),
         jsapiTicket: state.get('jsapiTicket'),
         address: state.get('address'),
-        refeffer: state.get('refeffer'),
+        referrer: state.get('referrer'),
     }
 }
 

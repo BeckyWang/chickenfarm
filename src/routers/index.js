@@ -33,7 +33,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateAccess: (code)=> {
-            dispatch(getFakeAccess).then(({access_token, openid, isUser, jsapi_ticket}) => {
+            dispatch(getAccess(code)).then(({access_token, openid, isUser, jsapi_ticket}) => {
             	dispatch(actions.updateAccessToken(access_token));
             	dispatch(actions.updateOpenId(openid));
                 dispatch(actions.updateIsUser(isUser));
@@ -58,8 +58,8 @@ const mapDispatchToProps = (dispatch) => {
         updateJsapiTicket: jsapiTicket => {
             dispatch(actions.updateJsapiTicket(jsapiTicket));
         },
-        updateRefeffer: referrer => {
-            dispatch(actions.updateRefeffer(referrer));
+        updateReferrer: referrer => {
+            dispatch(actions.updateReferrer(referrer));
         }
     }
 }
@@ -86,11 +86,11 @@ class AppRouter extends React.Component {
         }
 
         if(referrer) {
-            this.props.updateRefeffer(referrer);           
+            this.props.updateReferrer(referrer);           
         } else {
             if(state) {
                 window.sessionStorage.setItem('referrer', state);
-                this.props.updateRefeffer(state);
+                this.props.updateReferrer(state);
             }
         }       
     }

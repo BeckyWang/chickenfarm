@@ -7,7 +7,7 @@ const updateOpenId = createAction(reducerTpye.UPDATE_OPEN_ID);
 const updateIsUser = createAction(reducerTpye.UPDATE_IS_USER);
 const updateJsapiTicket = createAction(reducerTpye.UPDATE_JSAPI_TICKET);
 const updateAddress = createAction(reducerTpye.UPDATE_ADDRESS);
-const updateRefeffer = createAction(reducerTpye.UPDATE_REFEFFER);
+const updateReferrer = createAction(reducerTpye.UPDATE_REFERRER);
 
 export default {
     updateAccessToken,
@@ -15,5 +15,5 @@ export default {
     updateIsUser,
     updateJsapiTicket,
     updateAddress,
-    updateRefeffer,
+    updateReferrer,
 };

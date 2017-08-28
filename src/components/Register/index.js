@@ -2,7 +2,7 @@ import React from 'react';
 import { createForm } from 'rc-form';
 import { WingBlank, WhiteSpace, Icon, List, InputItem, Button, Toast, Popup, Flex } from 'antd-mobile';
 
-import { updateUser } from '../../unit/fetch';
+import { updateUser, addReferrer } from '../../unit/fetch';
 
 import styles from './styles';
 
@@ -30,6 +30,7 @@ class Register extends React.Component {
     	this.props.form.validateFields(async (errors, values) => {
             if(!errors) {
                 const info = {};
+                const { referrer } = this.props;
 
                 for (let [key, value] of Object.entries(values) ) {
                     if (value) {
@@ -42,6 +43,11 @@ class Register extends React.Component {
             	try {
         			await updateUser(info);
                     this.props.updateIsUser(true);
+
+                    if(referrer) {
+                       await addReferrer({referrerId: referrer}); 
+                    }
+
                     this.props.history.goBack();
         		} catch({info = '注册失败，请稍后重试！'}) {
     				Toast.fail(info, 1);
@@ -93,7 +99,7 @@ class Register extends React.Component {
 
     render() {
     	const { getFieldProps, getFieldError } = this.props.form;
-        console.log(this.props);
+        
         return (<div className={styles['register-container']}>
         	<WhiteSpace />
             <List renderHeader={() => <sapn className={styles['title']}>注册会员</sapn>}>

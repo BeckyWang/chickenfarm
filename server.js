@@ -1180,7 +1180,7 @@ router
         const datetime = `${date.getFullYear()}-${(date.getMonth() + 1 + '').padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
         query(`
             INSERT INTO db_chickenfarm.cf_wealth (uid, recorddatetime, recordtype, iomoney, iostate, paymenttype, ioput)
-            VALUES (${uid}, '${datetime}', 0, 0, 0, 2)
+            VALUES (${uid}, '${datetime}', 0, '${amount}', 0, 0, 2)
         `);
         cxt.status = 200;
     })
@@ -1239,7 +1239,7 @@ router
             FROM db_chickenfarm.cf_wealth
             WHERE uid = ${uid}
         `);
-        const wealth = wealthList.reduce((rst, {recordtype, iomoney}) => recordtype ? (rst + iomoney) : (rst - iomoney), 0);
+        const wealth = wealthList.reduce((rst, {recordtype, iomoney}) => recordtype ? (rst + iomoney) : (rst - iomoney), 0).toFixed(2);
 
         const chicken = await query(`
             SELECT adopt_date, adopt_days, cost, dailyspending
@@ -1251,7 +1251,7 @@ router
             const adoptDays = Math.floor((currentDatetime - adopt_date) / 60 /60 / 24 / 1000);
             const restDays = adopt_days - adoptDays;
             return rst + cost + dailyspending * restDays;
-        }, 0);
+        }, 0).toFixed(2);
 
         cxt.body = {
             wealth,
@@ -1457,20 +1457,20 @@ app
 
 client.on('ready', function(err) {
     http.createServer(function(req, res) {
-        if(req.url == "/video") {
-            const path = 'video/IMG_2283.MP4'
-            const stat = fs.statSync(path)
-            const fileSize = stat.size
-            const range = req.headers.range
+        if(/video\/\w{11}$/.test(req.url)) {
+            const path = '.' + req.url + '.mp4';
+            const stat = fs.statSync(path);
+            const fileSize = stat.size;
+            const range = req.headers.range;
             if (range) {
-                const parts = range.replace(/bytes=/, "").split("-")
-                const start = parseInt(parts[0], 10)
-                const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
-                const chunksize = (end - start) + 1
+                const parts = range.replace(/bytes=/, "").split("-");
+                const start = parseInt(parts[0], 10);
+                const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+                const chunksize = (end - start) + 1;
                 const file = fs.createReadStream(path, {
                     start,
                     end
-                })
+                });
                 const head = {
                     'Content-Range': `bytes ${start}-${end}/${fileSize}`,
                     'Accept-Ranges': 'bytes',
@@ -1484,11 +1484,11 @@ client.on('ready', function(err) {
                     'Content-Length': fileSize,
                     'Content-Type': 'video/mp4',
                 }
-                res.writeHead(200, head)
-                fs.createReadStream(path).pipe(res)
+                res.writeHead(200, head);
+                fs.createReadStream(path).pipe(res);
             }
         } else {
-            app.callback()(req, res)
+            app.callback()(req, res);
         }
     }).listen(8083);
 });

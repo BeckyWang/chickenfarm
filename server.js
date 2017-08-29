@@ -1492,6 +1492,7 @@ client.on('ready', function(err) {
                 res.writeHead(404, {
                     'Content-Type': 'text/plain'
                 });
+                res.end('资源不存在！');
             }
         } else {
             app.callback()(req, res);

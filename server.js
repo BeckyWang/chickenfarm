@@ -1459,7 +1459,7 @@ client.on('ready', function(err) {
     http.createServer(function(req, res) {
         if(/video\/\w{11}$/.test(req.url)) {
             const path = '.' + req.url + '.mp4';
-            if(fs.existsSync) {
+            if(fs.existsSync(path)) {
                 const stat = fs.statSync(path);
                 const fileSize = stat.size;
                 const range = req.headers.range;
@@ -1489,7 +1489,9 @@ client.on('ready', function(err) {
                     fs.createReadStream(path).pipe(res);
                 }
             } else {
-                res.writeHead(404);
+                res.writeHead(404, {
+                    'Content-Type': 'text/plain'
+                });
             }
         } else {
             app.callback()(req, res);

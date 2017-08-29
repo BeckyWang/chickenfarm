@@ -17,6 +17,7 @@ import {
     EggOrder_Cont, EggOrderPay_Cont,
     AddressList_Cont, AddressEdit_Cont, AddressManage_Cont,
     PersonalCenter_Cont, MyClient_Cont, MyTreasure_Cont, Withdraw_Cont,
+    Video_Cont,
 } from '../containers/collection'
 
 import { getQueryString } from '../unit/tool';
@@ -132,7 +133,9 @@ class AppRouter extends React.Component {
                     <Route exact path="/weixin/cultivation/person_center" component={PersonalCenter_Cont} />
                     <Route exact path="/weixin/cultivation/person_center/client" component={MyClient_Cont} />
                     <Route exact path="/weixin/cultivation/person_center/treasure" component={MyTreasure_Cont} />
-		            <Route exact path="/weixin/cultivation/person_center/withdraw" component={Withdraw_Cont} />
+                    <Route exact path="/weixin/cultivation/person_center/withdraw" component={Withdraw_Cont} />
+
+		            <Route exact path="/weixin/cultivation/unit/:unitName/video/:date" component={Video_Cont} />
 		        </Switch>
 	        </ConnectedRouter>
 	    );

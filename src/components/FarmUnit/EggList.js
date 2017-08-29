@@ -18,6 +18,8 @@ class EggList extends React.Component {
         	loading: true,
         	error: false,
         };
+
+        this.playVideo = this.playVideo.bind(this);
     }
 
     componentWillMount() {
@@ -37,6 +39,13 @@ class EggList extends React.Component {
         })();
     }
 
+    playVideo() {
+        const date  = this.props.match.params.date.split('-').join('');
+        const { unitName } = this.props.location.state;
+        
+        this.props.history.push(`/weixin/cultivation/unit/${unitName}/video/${date}`);
+    }
+
     render() {
         const { farmName, unitName } = this.props.location.state;
         const { date } = this.props.match.params
@@ -50,8 +59,9 @@ class EggList extends React.Component {
                 <span>鸡场单元：{unitName}</span>
             </WingBlank>
             <WhiteSpace />
-            <WingBlank className={styles['public-header']}>
-                <span>日期：{date}</span>
+            <WingBlank className={styles['second-header']}>
+                <span>{date}</span>
+                <span onClick={this.playVideo}><Icon type={require('../../asserts/icon/video.svg')} className={styles['second-header-icon']}/>当日视频</span>
             </WingBlank>
             <WhiteSpace size='lg'/>
         </div>;

@@ -23,6 +23,7 @@ import PersonalCenter from '../../components/PersonalCenter';
 import MyClient from '../../components/PersonalCenter/Client';
 import MyTreasure from '../../components/PersonalCenter/Treasure';
 import Withdraw from '../../components/PersonalCenter/Withdraw';
+import Video from '../../components/Video';
 
 const mapStateToProps = state => {
     return {
@@ -77,3 +78,4 @@ export const PersonalCenter_Cont = connect(mapStateToProps)(PersonalCenter);
 export const MyClient_Cont = connect(mapStateToProps)(MyClient);
 export const MyTreasure_Cont = connect(mapStateToProps)(MyTreasure);
 export const Withdraw_Cont = connect(mapStateToProps)(Withdraw);
+export const Video_Cont = connect(mapStateToProps)(Video);

@@ -95,6 +95,22 @@
 }
 
 .egg-list {
+	.second-header {
+		display: flex;
+		justify-content: space-between;
+		color: $primary-color-3;
+		font-size: 16px;
+	}
+
+	.second-header-icon {
+		width: 20px;
+		height: 20px;
+		position: relative;
+		top: 3px;
+		left: 2px;
+		margin-right: 5px;
+	}
+
 	.table-body {
 		overflow: scroll;
 	}

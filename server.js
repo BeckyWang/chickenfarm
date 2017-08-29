@@ -1,6 +1,6 @@
 const http = require('http');
 const Koa = require('koa');
-// const session = require('koa-session-minimal');
+const PassThrough = require('stream').PassThrough;
 const fs = require('fs');
 const redis = require('redis');
 const bodyParser = require('koa-bodyparser');
@@ -1432,33 +1432,6 @@ router
             cxt.request.body.signature = sha1(objToQuerystring(cxt.request.body));
         }
         cxt.body = cxt.request.body;
-    })
-    .get('/video', cxt => {
-        const path = 'video/IMG_2283.MP4';
-        const stat = fs.statSync(path);
-        const fileSize = stat.size;
-        const range = cxt.request.headers.range;
-        if (range) {
-            const parts = range.replace(/bytes=/, "").split("-");
-            const start = parseInt(parts[0], 10);
-            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-            const chunksize = end - start + 1;
-            const file = fs.createReadStream(path, {
-                start,
-                end
-            });
-            cxt.response.set('Content-Range', `bytes ${start}-${end}/${fileSize}`);
-            cxt.response.set('Accept-Ranges', 'bytes');
-            cxt.response.set('Content-Length', chunksize);
-            cxt.response.set('Content-Type', 'video/mp4');
-            cxt.body = file.pipe(cxt.res);
-            cxt.status = 206;
-        } else {
-            cxt.response.set('Content-Length', fileSize);
-            cxt.response.set('Content-Type', 'video/mp4');
-            cxt.body = fs.createReadStream(path).pipe(cxt.res);
-            cxt.status = 200;
-        }
     });
 
 app
@@ -1482,6 +1455,40 @@ app
     .use(router.allowedMethods());
 
 
-client.on('ready', function(err){
-    http.createServer(app.callback()).listen(8083);
+client.on('ready', function(err) {
+    http.createServer(function(req, res) {
+        if(req.url == "/video") {
+            const path = 'video/IMG_2283.MP4'
+            const stat = fs.statSync(path)
+            const fileSize = stat.size
+            const range = req.headers.range
+            if (range) {
+                const parts = range.replace(/bytes=/, "").split("-")
+                const start = parseInt(parts[0], 10)
+                const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
+                const chunksize = (end - start) + 1
+                const file = fs.createReadStream(path, {
+                    start,
+                    end
+                })
+                const head = {
+                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                    'Accept-Ranges': 'bytes',
+                    'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4',
+                }
+                res.writeHead(206, head);
+                file.pipe(res);
+            } else {
+                const head = {
+                    'Content-Length': fileSize,
+                    'Content-Type': 'video/mp4',
+                }
+                res.writeHead(200, head)
+                fs.createReadStream(path).pipe(res)
+            }
+        } else {
+            app.callback()(req, res)
+        }
+    }).listen(8083);
 });

@@ -39,6 +39,7 @@ class MyAopted extends React.Component {
         this.renderRow = this.renderRow.bind(this);
         this.toKeepEgg = this.toKeepEgg.bind(this);
         this.toBuyChicken = this.toBuyChicken.bind(this);
+        this.toProduction = this.toProduction.bind(this);
     }
 
     componentWillMount() {
@@ -103,6 +104,10 @@ class MyAopted extends React.Component {
         })();
     }
 
+    toProduction(cid, cname) {
+        this.props.history.push(`/weixin/cultivation/chicken/production/${cid}`, {chickenName:cname});
+    }
+
     renderPopupTitle(cname) {
         return <Flex justify="between" className={styles['popup-title']}>
             <span>确定对编号为{cname}的鸡只进行以下操作？</span>
@@ -136,7 +141,7 @@ class MyAopted extends React.Component {
         
         return(
             <Flex key={rowID} className={styles['chicken-item']}>
-                <span style={{width: '30%'}}>{cname}</span>
+                <span style={{width: '30%'}} onClick={() => this.toProduction(cid, cname)}>{cname}</span>
                 <span style={{width: '25%'}}>{ eggnum ? <Icon type="check" /> : ''}</span>
                 <span style={{width: '20%'}}>{age}天</span>
                 {  state === 4 ? <span style={{width: '25%', color: '#d22'}} >

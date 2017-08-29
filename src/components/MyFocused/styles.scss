@@ -54,6 +54,10 @@
 		.more {
 			display: flex;
 			justify-content: space-around;
+
+			a {
+				color: $primary-color-3;
+			}
 		}
 
 		.more-icon {

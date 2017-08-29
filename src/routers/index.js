@@ -9,13 +9,13 @@ import {
     Register_Cont, 
     FarmList_Cont, FarmUnitList_Cont, FarmUnitView_Cont, 
     EggList_Cont, 
+    ChickenProduction_Cont,
     ChickenAdopt_Cont, 
     ChickenDelay_Cont,
     ChickenOrder_Cont, 
     ChickenEat_Cont, 
     EggOrder_Cont, EggOrderPay_Cont,
     AddressList_Cont, AddressEdit_Cont, AddressManage_Cont,
-    Paytest_Cont,
     PersonalCenter_Cont, MyClient_Cont, MyTreasure_Cont, Withdraw_Cont,
 } from '../containers/collection'
 
@@ -108,11 +108,12 @@ class AppRouter extends React.Component {
                     <Route exact path="/weixin/cultivation/farms/:farmId/my-focused" component={MyFocused_Cont} />
 
 			        <Route exact path="/weixin/cultivation/farms" component={FarmList_Cont} />
-                    <Route exact path="/weixin/cultivation/farms/paytest" component={Paytest_Cont} />
                     <Route exact path="/weixin/cultivation/farms/:farmId" component={FarmUnitList_Cont} />
 
                     <Route exact path="/weixin/cultivation/farms/units/:unitId" component={FarmUnitView_Cont} />
                     <Route exact path="/weixin/cultivation/farms/units/:unitId/eggs/:date" component={EggList_Cont} />
+
+                    <Route exact path="/weixin/cultivation/chicken/production/:chickenId" component={ChickenProduction_Cont} />
 
                     <Route exact path="/weixin/cultivation/pay/chicken_adopt" component={ChickenAdopt_Cont} />
                     <Route exact path="/weixin/cultivation/pay/chicken_delay" component={ChickenDelay_Cont} />

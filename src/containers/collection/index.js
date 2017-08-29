@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import actions from '../../actions';
 
-import Paytest from '../../components/Paytest';
 import Footer from '../../components/Footer';
 import Register from '../../components/Register';
 import MyAdopted from '../../components/MyAdopted/List';
@@ -10,6 +9,7 @@ import FarmList from '../../components/FarmList';
 import FarmUnitList from '../../components/FarmUnit/List';
 import FarmUnitView from '../../components/FarmUnit/View';
 import EggList from '../../components/FarmUnit/Egglist';
+import ChickenProduction from '../../components/ChickenProduction';
 import ChickenAdopt from '../../components/ChickenAdopt';
 import ChickenDelay from '../../components/ChickenAdopt/Delay';
 import ChickenOrder from '../../components/ChickenOrder';
@@ -55,7 +55,6 @@ const mapAddrDispatchToProps = dispatch => {
     }
 }
 
-export const Paytest_Cont = connect(mapStateToProps)(Paytest);
 export const Footer_Cont = connect(mapStateToProps)(Footer);
 export const Register_Cont = connect(mapStateToProps, mapDispatchToProps)(Register);
 export const MyAdopted_Cont = connect(mapStateToProps)(MyAdopted);
@@ -64,6 +63,7 @@ export const FarmList_Cont = connect(mapStateToProps)(FarmList);
 export const FarmUnitList_Cont = connect(mapStateToProps)(FarmUnitList);
 export const FarmUnitView_Cont = connect(mapStateToProps)(FarmUnitView);
 export const EggList_Cont = connect(mapStateToProps)(EggList);
+export const ChickenProduction_Cont = connect(mapStateToProps)(ChickenProduction);
 export const ChickenAdopt_Cont = connect(mapStateToProps)(ChickenAdopt);
 export const ChickenDelay_Cont = connect(mapStateToProps)(ChickenDelay);
 export const ChickenOrder_Cont = connect(mapStateToProps)(ChickenOrder);

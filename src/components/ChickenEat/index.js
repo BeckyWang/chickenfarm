@@ -170,10 +170,10 @@ class ChickenEat extends React.Component {
                 <WhiteSpace size='lg'/>
             </div>
 
-        	<div className={styles['button-group']}>
-				<Button type="ghost" size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>取消</Button>
-        		<Button type="primary" size="small" className={styles['button']} onClick={this.toPay}>确认</Button>
-        	</div>
+			<Button type="ghost" onClick={() => this.props.history.goBack()}>取消</Button>
+            <WhiteSpace size='lg'/>
+    		<Button type="primary" onClick={this.toPay}>确认</Button>
+            <WhiteSpace size='lg'/>
         </div>);
     }
 }

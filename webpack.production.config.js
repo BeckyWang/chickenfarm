@@ -39,6 +39,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: 'js/bundle.js',
+        chunkFilename: "lib/[name].min.js",
         publicPath: host
     },
 
@@ -52,7 +53,7 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         presets: ["react", "env"],
-                        plugins: ["transform-object-rest-spread", ["import", {
+                        plugins: ["transform-object-rest-spread", "syntax-dynamic-import", ["import", {
                             libraryName: "antd-mobile",
                             style: true, 
                         }]],
@@ -88,7 +89,15 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader']
+                    use: ['css-loader', {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [pxtorem({
+                                rootValue: 60,
+                                propList: ['*'],
+                            })]
+                        }
+                    }]
                 })
             }, {
                 test: /\.svg$/,

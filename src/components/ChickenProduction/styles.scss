@@ -1,0 +1,18 @@
+@import '../../asserts/css/base';
+
+.production-container {
+	.second-header-icon {
+		width: 20px;
+		height: 20px;
+		position: relative;
+		top: 3px;
+		left: 2px;
+		margin-right: 5px;
+	}
+
+	.tips {
+		font-size: 14px;
+		color: $primary-color-3;
+		line-height: 20px;
+	}
+}

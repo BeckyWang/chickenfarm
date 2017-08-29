@@ -41,7 +41,7 @@ class EggOrderPay extends React.Component {
                 });
                 
                 wx.config({
-                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: 'wx20cc91f559b59b67', // 必填，公众号的唯一标识
                     timestamp, // 必填，生成签名的时间戳
                     nonceStr, // 必填，生成签名的随机串
@@ -183,11 +183,11 @@ class EggOrderPay extends React.Component {
                 </WingBlank>
                 <WhiteSpace size='lg'/>
             </div>
-
-            <div className={styles['button-group']}>
-				<Button type="ghost" size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>取消</Button>
-        		<Button type="primary" size="small" className={styles['button']} onClick={this.toPay}>确认</Button>
-        	</div>
+            
+			<Button type="ghost" onClick={() => this.props.history.goBack()}>取消</Button>
+            <WhiteSpace size='lg'/>
+    		<Button type="primary" onClick={this.toPay}>确认</Button>
+        	<WhiteSpace size='lg'/>
         </div>);
     }
 }

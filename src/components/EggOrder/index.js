@@ -67,10 +67,10 @@ class EggOrder extends React.Component {
                             message="因销售火爆，所有鸡蛋已被其他消费者订购。建议您选择自己喜欢的鸡场，并认养母鸡，认养母鸡所产的鸡蛋由您自主支配。"
                         />
                         <WhiteSpace size='lg'/>
-                        <div className={styles['button-group']}>
-                            <Button type="ghost" size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>算了</Button>
-                            <Button type="primary" size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>去认养</Button>
-                        </div>
+                        <Button type="ghost" onClick={() => this.props.history.goBack()}>算了</Button>
+                        <WhiteSpace size='lg'/>
+                        <Button type="primary" onClick={() => this.props.history.goBack()}>去认养</Button>                        
+                        <WhiteSpace size='lg'/>
                     </div>;
                     break;
                 default: 
@@ -81,10 +81,10 @@ class EggOrder extends React.Component {
                             message={`您指定的品牌鸡场鸡蛋已全被其他顾客订购，是否接受系统为您分配${farmName}鸡场的鸡蛋？`}
                         />
                         <WhiteSpace size='lg'/>
-                        <div className={styles['button-group']}>
-                            <Button type="ghost" size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>不接受</Button>
-                            <Button type="primary" size="small" className={styles['button']} onClick={this.toChangeStatus}>接受</Button>
-                        </div>
+                        <Button type="ghost" onClick={() => this.props.history.goBack()}>不接受</Button>
+                        <WhiteSpace size='lg'/>
+                        <Button type="primary" onClick={this.toChangeStatus}>接受</Button>
+                        <WhiteSpace size='lg'/>
                     </div>;;
                     break;
             }

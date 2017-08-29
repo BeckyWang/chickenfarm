@@ -281,21 +281,4 @@ export function getWXSignature(config) {
         body: JSON.stringify(config)
     })
 }
-
-export function getJsapiTicket(access_token) {
-    return executeFetch(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${access_token}&type=jsapi`);
-}
-
-//测试微信支付
-export function toWeixinPay() {
-    return executeFetch(address.weixinPay, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'ACCESSTOKEN': getAccessToken(),
-            'OPENID': getOpenId(),
-            'IP': window.returnCitySN.cip,
-        },
-    })
-}
 /***************************************************/

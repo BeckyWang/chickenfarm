@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { WingBlank, WhiteSpace, Flex, Result, Icon, ListView, Popup, List, Modal, Toast } from 'antd-mobile';
 
@@ -138,7 +139,7 @@ class MyFocused extends React.Component {
         return(
             <Flex key={rowID} className={styles['chicken-item']}>
                 <span style={{width: '30%'}} className={styles['more']}>
-                    <a style={{width: '70%'}}>{name}</a>
+                    <Link to={{pathname:`/weixin/cultivation/chicken/production/${id}`, state: {chickenName: name}}} style={{width: '70%'}} >{name}</Link>
                     <Icon type="down" size="xs" className={styles['more-icon']} onClick={() => this.moreOperation(id, name, state, isAdopted)}/>
                 </span>
                 <span style={{width: '20%'}}>{age}天</span>

@@ -92,7 +92,7 @@ class AppRouter extends React.Component {
                 window.sessionStorage.setItem('referrer', state);
                 this.props.updateReferrer(state);
             }
-        }      
+        } 
     }
 
     render() {

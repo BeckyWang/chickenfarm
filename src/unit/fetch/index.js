@@ -27,8 +27,9 @@ export function updateUser(info) {
 }
 
 //获取指定用户信息
-export function getUserInfo() {
-    return executeFetch(`${address.users}/${getOpenId()}/info`);
+export function getUserInfo(openId) {
+    let url = openId ? `${address.users}/${openId}/info` : `${address.users}/${getOpenId()}/info`;
+    return executeFetch(url);
 }
 
 //获取指定用户的推荐客户列表 => [{uid, realname, totalEggs, curMonthEggs, totalChicken, curMonthChicken}]
@@ -55,6 +56,17 @@ export function updateAlipay(info) {
 //推荐 path: wxId => 本人openId,  body: { referrerId } //推荐人openId
 export function addReferrer(info) {
     return executeFetch(`${address.users}/${getOpenId()}/recommend`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info)
+    });
+}
+
+//指定用户提现, body = {amount}  amount为 1.00 格式
+export function withdrawMoney(info) {
+    return executeFetch(`${address.users}/${getOpenId()}/withdraw`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

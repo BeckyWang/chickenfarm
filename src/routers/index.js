@@ -35,9 +35,9 @@ const mapDispatchToProps = (dispatch) => {
         updateAccess: (code)=> {
             dispatch(getAccess(code)).then(({access_token, openid, isUser, jsapi_ticket}) => {
             	dispatch(actions.updateAccessToken(access_token));
+                dispatch(actions.updateJsapiTicket(jsapi_ticket));
             	dispatch(actions.updateOpenId(openid));
                 dispatch(actions.updateIsUser(isUser));
-            	dispatch(actions.updateJsapiTicket(jsapi_ticket));
             	window.sessionStorage.setItem('accessStr', JSON.stringify({
                     accessToken: access_token,
                     openId: openid,

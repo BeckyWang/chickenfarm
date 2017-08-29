@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { randomchar } from '../../unit/tool';
-import { getWXSignature, getJsapiTicket } from '../../unit/fetch';
+import { getWXSignature } from '../../unit/fetch';
 
 class Pay extends React.Component {
     constructor() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { WingBlank, WhiteSpace, Flex, Result, Icon, List, Button, Toast, Radio } from 'antd-mobile';
 
 import { randomchar } from '../../unit/tool';
-import { getWXSignature, getJsapiTicket, buyEgg } from '../../unit/fetch';
+import { getWXSignature, buyEgg } from '../../unit/fetch';
 
 import styles from './styles';
 

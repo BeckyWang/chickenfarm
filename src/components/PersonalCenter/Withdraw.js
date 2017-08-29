@@ -1,7 +1,8 @@
 import React from 'react';
+import { createForm } from 'rc-form';
 import { WingBlank, WhiteSpace, Icon, Button, Result, Modal, InputItem, List, Toast } from 'antd-mobile';
 
-import { getUserInfo, updateAlipay } from '../../unit/fetch';
+import { getUserInfo, updateAlipay, withdrawMoney } from '../../unit/fetch';
 import Loading from '../public/Loading';
 
 import styles from './styles';
@@ -14,13 +15,11 @@ class Withdraw extends React.Component {
 
         this.state = {
         	alipay: '',
-        	withdrawMoney: null,
             loading: true,
             error: false,
         };
 
         this.toComplete = this.toComplete.bind(this);
-        this.onChangeMoney = this.onChangeMoney.bind(this);
         this.toWithdraw = this.toWithdraw.bind(this);
     }
 
@@ -57,30 +56,37 @@ class Withdraw extends React.Component {
 		], 'default', null, ['请输入您的微信账号'])
     }
 
-    onChangeMoney(val) {
-    	this.setState({
-    		withdrawMoney: val,
-    	});
-    }
-
     toWithdraw() {
-    	const { withdrawMoney } = this.state;
         const { wealth } = this.props.location.state;
-        
-        if(!withdrawMoney || withdrawMoney === '0') {
-        	Toast.fail('请输入提现金额', 2);
-        	return;
-        }
 
-        if(withdrawMoney > wealth) {
-        	Toast.fail('提现金额不得大于财富总额', 2);
-        	return;
-        }
+        this.props.form.validateFields(async (errors, values) => {
+            if(!errors) {
+                const { amount } = values;
+                
+                if(+amount === 0) {
+                    Toast.fail('提现金额必须大于零', 2);
+                    return;
+                }
 
+                if(+amount > wealth) {
+                    Toast.fail('提现金额不得大于财富总额', 2);
+                    return;
+                }
+
+                try {
+                    await withdrawMoney({amount: +amount});
+                    Toast.success('提现成功，等待管理人员转账！', 2);
+                    this.props.history.goBack();
+                } catch({info='提现失败，请稍后再试！'}) {
+                    Toast.fail(info, 2);
+                }
+            }
+        });
     }
 
     render() {
-    	const { alipay, loading, error, withdrawMoney } = this.state;
+    	const { alipay, loading, error } = this.state;
+        const { getFieldProps, getFieldError } = this.props.form;
 
     	const headerComponent = <div>
             <WhiteSpace size='lg'/>
@@ -116,11 +122,27 @@ class Withdraw extends React.Component {
 	            		<List>
 	            			<List.Item multipleLine>
 	            				<InputItem
+                                    {...getFieldProps('amount', {
+                                        rules: [{
+                                            required: true, message: '请输入提现金额!'
+                                        }],
+                                        normalize: (v, prev) => {
+                                            if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                                if (v === '.') {
+                                                    return '0.';
+                                                }
+                                                return prev;
+                                            }
+                                            return v;
+                                        },
+                                    })}
 									type="money"
 									placeholder="请输入提现金额"
 									labelNumber={2}
-									value={withdrawMoney}
-									onChange={this.onChangeMoney}
+                                    error={!!getFieldError('amount')}
+                                    onErrorClick={() => {
+                                        Toast.fail(getFieldError('amount'), 1);
+                                    }}
 									className={styles['money']}
 								>
 									<Icon type={require('../../asserts/icon/money2.svg')} />
@@ -146,4 +168,4 @@ class Withdraw extends React.Component {
     }
 }
 
-export default Withdraw;
+export default createForm()(Withdraw);

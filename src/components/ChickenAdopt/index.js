@@ -3,7 +3,7 @@ import { createForm } from 'rc-form';
 import { WingBlank, WhiteSpace, Flex, Result, Icon, Checkbox, InputItem, List, Button, Toast } from 'antd-mobile';
 
 import { randomchar } from '../../unit/tool';
-import { getChickenInfo, getWXSignature, getJsapiTicket, adoptChicken } from '../../unit/fetch';
+import { getChickenInfo, getWXSignature, adoptChicken } from '../../unit/fetch';
 
 import styles from './styles';
 

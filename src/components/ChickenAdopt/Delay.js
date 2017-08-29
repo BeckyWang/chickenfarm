@@ -3,7 +3,7 @@ import { createForm } from 'rc-form';
 import { WingBlank, WhiteSpace, Flex, Result, Icon, InputItem, List, Button, Toast } from 'antd-mobile';
 
 import { randomchar } from '../../unit/tool';
-import { getChickenInfo, getWXSignature, getJsapiTicket, delayChicken } from '../../unit/fetch';
+import { getChickenInfo, getWXSignature, delayChicken } from '../../unit/fetch';
 
 import styles from './styles';
 

@@ -63,6 +63,17 @@ export function addReferrer(info) {
         body: JSON.stringify(info)
     });
 }
+
+//指定用户提现, body = {amount}  amount为 1.00 格式
+export function withdrawMoney(info) {
+    return executeFetch(`${address.users}/${getOpenId()}/withdraw`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info)
+    });
+}
 /***************************************************/
 
 

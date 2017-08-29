@@ -1433,33 +1433,33 @@ router
         }
         cxt.body = cxt.request.body;
     })
-    // .get('/video', cxt => {
-    //     const path = 'video/IMG_2283.MP4';
-    //     const stat = fs.statSync(path);
-    //     const fileSize = stat.size;
-    //     const range = cxt.request.headers.range;
-    //     if (range) {
-    //         const parts = range.replace(/bytes=/, "").split("-");
-    //         const start = parseInt(parts[0], 10);
-    //         const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-    //         const chunksize = end - start + 1;
-    //         const file = fs.createReadStream(path, {
-    //             start,
-    //             end
-    //         });
-    //         cxt.response.set('Content-Range', `bytes ${start}-${end}/${fileSize}`);
-    //         cxt.response.set('Accept-Ranges', 'bytes');
-    //         cxt.response.set('Content-Length', chunksize);
-    //         cxt.response.set('Content-Type', 'video/mp4');
-    //         cxt.body = file.pipe(cxt.res);
-    //         cxt.status = 206;
-    //     } else {
-    //         cxt.response.set('Content-Length', fileSize);
-    //         cxt.response.set('Content-Type', 'video/mp4');
-    //         cxt.body = fs.createReadStream(path).pipe(cxt.res);
-    //         cxt.status = 200;
-    //     }
-    // });
+    .get('/video', cxt => {
+        const path = 'video/IMG_2283.MP4';
+        const stat = fs.statSync(path);
+        const fileSize = stat.size;
+        const range = cxt.request.headers.range;
+        if (range) {
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+            const chunksize = end - start + 1;
+            const file = fs.createReadStream(path, {
+                start,
+                end
+            });
+            cxt.response.set('Content-Range', `bytes ${start}-${end}/${fileSize}`);
+            cxt.response.set('Accept-Ranges', 'bytes');
+            cxt.response.set('Content-Length', chunksize);
+            cxt.response.set('Content-Type', 'video/mp4');
+            cxt.body = file.pipe(cxt.res);
+            cxt.status = 206;
+        } else {
+            cxt.response.set('Content-Length', fileSize);
+            cxt.response.set('Content-Type', 'video/mp4');
+            cxt.body = fs.createReadStream(path).pipe(cxt.res);
+            cxt.status = 200;
+        }
+    });
 
 app
     .use(async (ctx, next) => {

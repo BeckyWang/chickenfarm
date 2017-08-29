@@ -1432,6 +1432,12 @@ router
             cxt.request.body.signature = sha1(objToQuerystring(cxt.request.body));
         }
         cxt.body = cxt.request.body;
+    })
+    //视频是否存在
+    .get('/video/:name/exist', cxt => {
+        cxt.body = {
+            status: fs.existsSync(`./video/${cxt.params.name}.mp4`)
+        }
     });
 
 app

@@ -70,7 +70,7 @@ class ChickenProduction extends React.Component {
                 <span>鸡只产蛋详情</span>
                 <span></span>
             </WingBlank>
-            <WhiteSpace size='lg'/>
+            <WhiteSpace />
         </div>;
 
         if(loading) {
@@ -133,8 +133,9 @@ class ChickenProduction extends React.Component {
             		<WingBlank className={styles['tips']}>
             			蓝色背景表示当天产蛋并售出，黄色背景表示当天产蛋蛋但是未售出，无背景色表示当日未产蛋。
             		</WingBlank>
-            		<WhiteSpace size='lg'/>
+            		<WhiteSpace />
             		<WingBlank className={styles['tips']}>翻阅日历可了解更多信息。</WingBlank>
+                    <WhiteSpace />
 	    		</div> }
             </div>
         );

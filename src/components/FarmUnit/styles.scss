@@ -1,5 +1,9 @@
 @import '../../asserts/css/base';
 
+.color-highlight {
+	color: #bf162c;
+}
+
 .unit-list {
 	font-size: 16px;
 
@@ -50,15 +54,18 @@
 	}
 
 	.egg-search {
+		margin-bottom: 10px;
+
 		.title {
-			margin: 10px 0;
+			margin-bottom: 10px;
 			font-size: 16px;
 			color: $primary-color-3;
 		}
 
 		.title-icon {
 			position: relative;
-			top: 4px;
+			top: 3px;
+			margin-right: 4px;
 		}
 
 		.date-picker {

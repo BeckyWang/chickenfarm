@@ -274,17 +274,10 @@ class UnitView extends React.Component {
                 title="获取失败"
                 message="网络错误，获取鸡只信息失败，请稍候再试！"
             /> : (dataSource._cachedRowCount ? <div>
-                <ListView 
-                    dataSource={dataSource}
-                    renderRow={this.renderRow}
-                    pageSize={8}
-                    style={{height: clientHeight * 3 / 4}}
-                />
                 <div className={styles['egg-search']}>
                     <WingBlank>
                         <Flex justify="between" className={styles['title']}>
-                            <span><Icon type="search" size="xs" className={styles['title-icon']}/>查看{farmName}{unitName}单元的日生产信息</span>
-                            
+                            <span><Icon type="search" size="xs" className={styles['title-icon']}/>查看{farmName}{unitName}单元的日生产信息与视频</span>                            
                         </Flex>
                     </WingBlank>
                     <Flex justify="between" style={{backgroundColor: '#e7e7e7'}}>
@@ -301,6 +294,12 @@ class UnitView extends React.Component {
                         <span onClick={this.toSeacher} className={styles['search-button']}>查询</span>
                     </Flex>
                 </div>
+                <ListView 
+                    dataSource={dataSource}
+                    renderRow={this.renderRow}
+                    pageSize={8}
+                    style={{height: clientHeight * 3 / 4}}
+                />
             </div> : <Result
                 img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
                 title="提示"
@@ -316,7 +315,7 @@ class UnitView extends React.Component {
 	            	<span>品牌：{farmName}</span>
 	            	<span>单元：{unitName}</span>
 	            </WingBlank>
-	            <WhiteSpace size='lg'/>
+	            <WhiteSpace />
         	</div>
             { bodyComponent }
         </div>);

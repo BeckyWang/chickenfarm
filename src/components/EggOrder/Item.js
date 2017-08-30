@@ -14,7 +14,8 @@ const Item = ({keyValue, info}) => {
         </div>
 
     	<Flex className={styles['table-header']}>
-            <span style={{width: '40%'}}>蛋号</span>
+            <span style={{width: '15%'}}>蛋号</span>
+            <span style={{width: '25%'}}>时间</span>
             <span style={{width: '20%'}}>母鸡</span>
             <span style={{width: '15%'}}>售价</span>
             <span style={{width: '25%'}}>认养者</span>
@@ -22,8 +23,9 @@ const Item = ({keyValue, info}) => {
         
         <div>
         	{
-	        	info.map(({cname, eggsell, mobile, ename}) => <Flex className={styles['row']}>
-	                <span style={{width: '40%'}}>{ename}</span>
+	        	info.map(({cname, eggsell, mobile, ename, createtime}) => <Flex className={styles['row']}>
+                    <span style={{width: '15%'}}>{ename}</span>
+	                <span style={{width: '25%'}}>{createtime.split(' ')[1]}</span>
 		            <span style={{width: '20%'}}>{cname}</span>
 		            <span style={{width: '15%'}}>{eggsell}</span>
 		            <span style={{width: '25%'}}>{mobile ? renderMobile(mobile) : ''}</span>

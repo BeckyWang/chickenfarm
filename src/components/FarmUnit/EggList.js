@@ -60,8 +60,11 @@ class EggList extends React.Component {
             </WingBlank>
             <WhiteSpace />
             <WingBlank className={styles['second-header']}>
-                <span>{date}</span>
-                <span onClick={this.playVideo}><Icon type={require('../../asserts/icon/video.svg')} className={styles['second-header-icon']}/>当日视频</span>
+                <span>日期：{date}</span>
+                <span onClick={this.playVideo}>
+                    <Icon type={require('../../asserts/icon/video.svg')} className={styles['second-header-icon']}/>
+                    当日视频
+                </span>
             </WingBlank>
             <WhiteSpace size='lg'/>
         </div>;
@@ -87,7 +90,8 @@ class EggList extends React.Component {
 
         bodyComponent = dataSource.length ? <div>
             <Flex className={styles['table-header']}>
-                <span style={{width: '36%'}}>蛋号</span>
+                <span style={{width: '12%'}}>蛋号</span>
+                <span style={{width: '24%'}}>时间</span>
                 <span style={{width: '12%'}}>笼号</span>
                 <span style={{width: '15%'}}>状态</span>
                 <span style={{width: '12%'}}>售价</span>
@@ -95,8 +99,9 @@ class EggList extends React.Component {
             </Flex>
             <div className={styles['table-body']} style={{height: clientHeight * 2 / 3}}>
             {
-                dataSource.map(({eid, caid, state, eggsell, buyer}) => <Flex className={styles['egg-item']}>
-                    <span style={{width: '36%'}}>{eid}</span>
+                dataSource.map(({eid, caid, state, eggsell, buyer, createtime}) => <Flex className={styles['egg-item']}>
+                    <span style={{width: '12%'}}>{eid}</span>
+                    <span style={{width: '24%'}}>{createtime.split(' ')[1]}</span>
                     <span style={{width: '12%'}}>{caid}</span>
                     <span style={{width: '15%'}}>{state}</span>
                     <span style={{width: '12%'}}>{eggsell}</span>

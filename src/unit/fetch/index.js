@@ -282,3 +282,7 @@ export function getWXSignature(config) {
     })
 }
 /***************************************************/
+
+export function queryVideo(name) {
+    return executeFetch(`${address.video}/${name}/exist`);
+}

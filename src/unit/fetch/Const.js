@@ -34,4 +34,5 @@ export const address = {
     'eggs': prefix + '/eggs',
     'address': prefix + '/address',
     'weixinPay': prefix + '/paytest',
+    'video': prefix + '/video',
 };

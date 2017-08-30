@@ -130,7 +130,7 @@ router
         const entTime = `${end.getFullYear()}-${(end.getMonth() + 1 + '').padStart(2, '0')}-${(end.getDate() + '').padStart(2, '0')}`;
         const states = ['预售', '已售', '过期', '处理', ''];
         const eggs = await query(`
-            SELECT a.createtime, a.cid, a.oid, b.eggprice, a.state, a.caid
+            SELECT a.createtime, a.oid, b.eggprice, a.state, a.caid, b.ncid
             FROM db_chickenfarm.cf_egg a
             INNER JOIN db_chickenfarm.cf_chicken b
             ON a.cid = b.cid
@@ -141,14 +141,14 @@ router
         const result = [];
         const mobileStore = {};
         for(let i = 0, len = eggs.length; i < len; i++) {
-            const {cid, createtime, eggprice, state, oid, caid} = eggs[i];
-            const d = new Date(createtime);
+            const {createtime, eggprice, state, oid, caid, ncid} = eggs[i];
             const egg = {
-                eid: string10to62(cxt.params.unitId).slice(-3).padStart(3, '0') + dArr[0].slice(-2) + dArr[1] + dArr[2] + cid.toString().padStart(2, '0') + d.getHours().toString().padStart(2, '0') + d.getMinutes().toString().padStart(2, '0'),
+                eid: ncid,
                 caid,
                 state: states[state],
                 eggsell: eggprice,
-                buyer: null
+                buyer: null,
+                createtime
             };
             if(oid) {
                 if(mobileStore[oid]) {
@@ -975,16 +975,13 @@ router
             const date = new Date();
             eggs = Array.from(eggs, ({eid, cid, createtime, cuid, ncid, eggsell = 0, mobile, adopt_uid}) => {
                 const cuidname = string10to62(cuid).slice(-3).padStart(3, '0');
-                const datetimeArr = createtime.split(' ');
-                const dateArr = datetimeArr[0].split('-');
-                const timeArr = datetimeArr[1].split(':');
                 return {
                     createtime, mobile,
                     eggsell,
                     cuid: cuidname,
                     cname: `${string10to62(cuid).slice(-3).padStart(3, '0') }${(ncid + '').padStart(2, '0')}`,
                     eid,
-                    ename: cuidname + dateArr[0].slice(-2) + dateArr[1] + dateArr[2] + cid.toString().padStart(2, '0') + timeArr[0].padStart(2, '0') + timeArr[1].padStart(2, '0'),
+                    ename: (ncid + '').padStart(2, '0'),
                     adopt_uid
                 }
             });
@@ -1121,16 +1118,13 @@ router
             const date = new Date();
             eggs = Array.from(eggs, ({eid, cid, createtime, cuid, ncid, eggsell = 0, mobile, adopt_uid}) => {
                 const cuidname = string10to62(cuid).slice(-3).padStart(3, '0');
-                const datetimeArr = createtime.split(' ');
-                const dateArr = datetimeArr[0].split('-');
-                const timeArr = datetimeArr[1].split(':');
                 return {
                     createtime, mobile, adopt_uid,
                     eggsell,
                     cuid: cuidname,
                     cname: `${string10to62(cuid).slice(-3).padStart(3, '0') }${(ncid + '').padStart(2, '0')}`,
                     eid,
-                    ename: cuidname + dateArr[0].slice(-2) + dateArr[1] + dateArr[2] + cid.toString().padStart(2, '0') + timeArr[0].padStart(2, '0') + timeArr[1].padStart(2, '0'),
+                    ename: (ncid + '').padStart(2, '0'),
                     adopt_uid
                 }
             });

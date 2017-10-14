@@ -174,20 +174,11 @@ class EggOrderPay extends React.Component {
                 <WhiteSpace size='lg'/>
             </div>
 
-            <div>
-                <WhiteSpace size='lg'/>
-                <WingBlank>
-                    <Flex justify="between">
-                        <span style={{color: '#28BB78'}}>合计：{totalPrice}元</span>
-                    </Flex>
-                </WingBlank>
-                <WhiteSpace size='lg'/>
-            </div>
-            
-			<Button type="ghost" onClick={() => this.props.history.goBack()}>取消</Button>
-            <WhiteSpace size='lg'/>
-    		<Button type="primary" onClick={this.toPay}>确认</Button>
-        	<WhiteSpace size='lg'/>
+            <div className={styles['btn-groups']}>
+                <span style={{color: '#28BB78'}}>合计：{totalPrice}元</span>
+                <Button type="ghost" inline size="small" className={styles['button']} onClick={() => this.props.history.goBack()}>取消</Button>
+                <Button type="primary" inline size="small" className={styles['button']} onClick={this.toPay}>确认</Button>  
+            </div>  
         </div>);
     }
 }

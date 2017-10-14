@@ -26,4 +26,20 @@
 		font-size: 16px;
 		color: $primary-color-2;
 	}
+
+	.btn-groups {
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		display: flex;
+		justify-content: flex-end;
+		padding: 10px 0;
+		line-height: 30px;
+		background-color: #fff;
+	}
+
+	.button {
+		width: 80px;
+		margin-left: 15px;
+	}
 }

@@ -74,7 +74,7 @@ class MyFocused extends React.Component {
             return;
         }
 
-        this.props.history.push('/weixin/cultivation/pay/chicken_adopt', {chickenId: cid});
+        this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, type: 'chicken_adopt'});
         Popup.hide();
     }
 
@@ -83,7 +83,7 @@ class MyFocused extends React.Component {
             return;
         }
 
-        this.props.history.push('/weixin/cultivation/pay/chicken_order', {chickenId: cid});
+        this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, type: 'chicken_order'});
         Popup.hide();
     }
 

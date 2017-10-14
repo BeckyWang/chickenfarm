@@ -116,14 +116,29 @@ class AppRouter extends React.Component {
 
                     <Route exact path="/weixin/cultivation/chicken/production/:chickenId" component={ChickenProduction_Cont} />
 
-                    <Route exact path="/weixin/cultivation/pay/chicken_adopt" component={ChickenAdopt_Cont} />
-                    <Route exact path="/weixin/cultivation/pay/chicken_delay" component={ChickenDelay_Cont} />
-                    <Route exact path="/weixin/cultivation/pay/chicken_order" component={ChickenOrder_Cont} />
-                    <Route exact path="/weixin/cultivation/pay/chicken_eat" component={ChickenEat_Cont} />
+                    <Route exact path="/weixin/cultivation/pay" render={props => {
+                        const { location: {state}} = props;
+                        switch(state.type) {
+                            case 'chicken_adopt':
+                                return <ChickenAdopt_Cont {...props}/>;
+                                break;
+                            case 'chicken_delay':
+                                return <ChickenDelay_Cont {...props}/>;
+                                break;
+                            case 'chicken_order':
+                                return <ChickenOrder_Cont {...props}/>;
+                                break;
+                            case 'chicken_eat':
+                                return <ChickenEat_Cont {...props}/>;
+                                break;
+                            case 'egg_order':
+                                return <EggOrderPay_Cont {...props}/>;
+                                break;
+                        }
+                    }} />
 
                     <Route exact path="/weixin/cultivation/egg/order/farms/all" component={EggOrder_Cont} />
                     <Route exact path="/weixin/cultivation/egg/order/farms/:farmId" component={EggOrder_Cont} />
-                    <Route exact path="/weixin/cultivation/pay/egg_order" component={EggOrderPay_Cont} />
 
                     <Route exact path="/weixin/cultivation/address" component={AddressList_Cont} />
                     <Route exact path="/weixin/cultivation/address/manage" component={AddressManage_Cont} />

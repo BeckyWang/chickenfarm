@@ -94,13 +94,14 @@ class ChickenProduction extends React.Component {
 	            	<WhiteSpace />
 	    			<InfiniteCalendar.default
 						width={clientWidth}
-						height={clientHeight * 1 / 2}
-						rowHeight={90}
+						height={clientHeight * 7 / 12}
+						rowHeight={130}
 						Component={InfiniteCalendar.withMultipleDates(InfiniteCalendar.Calendar)}
 						selected={dateList}
 						interpolateSelection={InfiniteCalendar.defaultMultipleDateInterpolation}
 						displayOptions={{
 					    	showTodayHelper: false,
+                            showHeader: false,
 					   	}}
 						locale={{
 							locale: require('date-fns/locale/zh_cn'),
@@ -129,9 +130,9 @@ class ChickenProduction extends React.Component {
 						}}
 						onSelect={this.onSelectDate}
 					/>
-            		<WhiteSpace size='lg'/>
+            		<WhiteSpace />
             		<WingBlank className={styles['tips']}>
-            			蓝色背景表示当天产蛋并售出，黄色背景表示当天产蛋蛋但是未售出，无背景色表示当日未产蛋。
+            			蓝色背景表示当天产蛋并售出，黄色背景表示当天产蛋但是未售出，无背景色表示当日未产蛋。
             		</WingBlank>
             		<WhiteSpace />
             		<WingBlank className={styles['tips']}>翻阅日历可了解更多信息。</WingBlank>

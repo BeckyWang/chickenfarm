@@ -114,7 +114,7 @@ class UnitView extends React.Component {
         
         if(this.props.isUser) {
             Popup.hide();
-            this.props.history.push('/weixin/cultivation/pay/chicken_adopt', {chickenId: cid});
+            this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, type: 'chicken_adopt'});
         } else {
             this.toRegister();
         }
@@ -148,7 +148,7 @@ class UnitView extends React.Component {
 
         if(this.props.isUser) {
             Popup.hide();
-            this.props.history.push('/weixin/cultivation/pay/chicken_order', {chickenId: cid});
+            this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, type: 'chicken_order'});
         } else {
             this.toRegister();
         }
@@ -277,7 +277,7 @@ class UnitView extends React.Component {
                 <div className={styles['egg-search']}>
                     <WingBlank>
                         <Flex justify="between" className={styles['title']}>
-                            <span><Icon type="search" size="xs" className={styles['title-icon']}/>查看{farmName}{unitName}单元的日生产信息与视频</span>                            
+                            <span><Icon type="search" size="xs" className={styles['title-icon']}/>查看日生产信息与视频</span>                            
                         </Flex>
                     </WingBlank>
                     <Flex justify="between" style={{backgroundColor: '#e7e7e7'}}>

@@ -66,7 +66,7 @@ class MyAopted extends React.Component {
     }
 
     toExtendAdoptTime(cid) {
-        this.props.history.push('/weixin/cultivation/pay/chicken_delay', {chickenId: cid});
+        this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, type: 'chicken_delay'});
         Popup.hide();
     }
 
@@ -77,7 +77,7 @@ class MyAopted extends React.Component {
 
         alert('提示', '购买您认养的鸡只所需要的花费将从您的认养押金里扣除，若认养鸡只未到期，剩下的日花销将退还到您的财富里，确定购买？', [
             { text: '取消' },
-            { text: '确定', onPress: () => {this.props.history.push('/weixin/cultivation/pay/chicken_eat', {chickenId: cid, restDays})}},
+            { text: '确定', onPress: () => {this.props.history.push('/weixin/cultivation/pay', {chickenId: cid, restDays, type: 'chicken_eat'})}},
         ])
 
         Popup.hide();

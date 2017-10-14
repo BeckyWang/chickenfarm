@@ -58,7 +58,7 @@ class Order extends React.Component {
     toPayOrder() {
         const { totalPrice } = this.state;
         const { orderInfo: { orderId } } = this.props;
-        this.props.goTo('/weixin/cultivation/pay/egg_order', {totalPrice, orderId});
+        this.props.goTo('/weixin/cultivation/pay', {type: 'egg_order', totalPrice, orderId});
     }
 
     render() {

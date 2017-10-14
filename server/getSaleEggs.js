@@ -35,7 +35,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             AND cfid = ${farmId}
         `);
         if(eggSearchRst.length < 30) {
-            resolve({
+            return resolve({
                 status: 1,
                 eggsForSale
             });
@@ -65,7 +65,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
@@ -97,7 +97,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
@@ -130,7 +130,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
@@ -154,7 +154,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
@@ -178,7 +178,7 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
@@ -203,12 +203,12 @@ module.exports = function(farmId, uid, referrer_uid) {
             eggsForSale.forEach(({eid}) => {
                 EggsInOrder.put(eid);
             });
-            resolve({
+            return resolve({
                 status: 0,
                 eggsForSale
             });
         }
 
-        reject();
+        return reject();
     });
 }

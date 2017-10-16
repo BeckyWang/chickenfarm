@@ -64,8 +64,8 @@ class MyFocused extends React.Component {
         })();
     }
 
-    toAdopt(cid, isAdopted) {
-        if(isAdopted) {
+    toAdopt(cid, state, isAdopted) {
+        if(state !== 0 || isAdopted) {
             return;
         }
 
@@ -122,9 +122,9 @@ class MyFocused extends React.Component {
                 onClick={() => this.toBuyChicken(cid, state)}
             >{state === 2 ? '吃掉它' : '不是预售期不可购买'}</List.Item>
             <List.Item
-                className={cx({'background-gray': isAdopted})}
-                onClick={() => this.toAdopt(cid, isAdopted)}
-            >{isAdopted ? '已被认养' : '认养它'}</List.Item>
+                className={cx({'background-gray': state !== 0 || isAdopted})}
+                onClick={() => this.toAdopt(cid, state, isAdopted)}
+            >{state === 0 && !isAdopted ? '认养它' : '不能认养'}</List.Item>
         </List>, { animationType: 'slide-up', maskProps, maskClosable: false });
     }
 

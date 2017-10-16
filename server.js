@@ -963,7 +963,7 @@ router
         }
 
         let farmName = '';
-        if(state < 2) {
+        if(state == 0 || state == 2) {
             const farmRst = await query(`
                 SELECT cfname
                 FROM db_chickenfarm.cf_chicken_farm

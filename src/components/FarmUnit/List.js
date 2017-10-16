@@ -94,7 +94,13 @@ class FarmUnit extends React.Component {
                 img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
                 title="获取失败"
                 message="网络错误，获取鸡场单元列表失败，请稍候再试！"
-            /> : <Flex wrap="wrap">{unitList.length && unitList.map(item => <Item unit={item} farmName={farmName}/>)}</Flex>
+            /> : <Flex wrap="wrap">
+                { unitList.length ? unitList.map(item => <Item unit={item} farmName={farmName}/>) : <Result
+                    img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
+                    title="提示"
+                    message="暂无鸡场单元！"
+                /> }
+            </Flex>
         }
 
         return (<div className={styles['unit-list']}>

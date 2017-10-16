@@ -46,7 +46,7 @@ class ChickenAdopt extends React.Component {
 
         (async () => {
             try {
-                const timestamp = +(new Date()).valueOf().toString().slice(0, 10);
+                const timestamp = new Date().valueOf().toString().slice(0, 10);
                 const nonceStr = randomchar(32);
                 const {signature} = await getWXSignature({
                     timestamp, // 必填，生成签名的时间戳
@@ -81,7 +81,7 @@ class ChickenAdopt extends React.Component {
 
             	try {
             		const { prepay_id } = await adoptChicken(chickenId, {adopt_days: +values.adoptedDays});
-            		const timestamp = +(new Date()).valueOf().toString().slice(0, 10);
+            		const timestamp = new Date().valueOf().toString().slice(0, 10);
                     const nonceStr = randomchar(32);
                     const { signature: paySign } = await getWXSignature({
                         appId: 'wx20cc91f559b59b67',
@@ -92,7 +92,7 @@ class ChickenAdopt extends React.Component {
                     });
 
                      wx.chooseWXPay({
-                        // appId: 'wx20cc91f559b59b67',
+                        appId: 'wx20cc91f559b59b67',
                         timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                         nonceStr, // 支付签名随机串，不长于 32 位
                         package: `prepay_id=${prepay_id}`, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）

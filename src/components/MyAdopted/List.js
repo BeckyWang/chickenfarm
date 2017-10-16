@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import { WingBlank, WhiteSpace, Flex, Result, Icon, ListView, Popup, List, Toast, Modal } from 'antd-mobile';
+import { WingBlank, WhiteSpace, Flex, Result, Icon, Popup, List, Toast, Modal } from 'antd-mobile';
 
 import { getMyAdopted, getAllMyAdopted, keepEgg } from '../../unit/fetch';
 import Loading from '../public/Loading';
@@ -25,18 +25,13 @@ class MyAopted extends React.Component {
     constructor() {
         super();
 
-        const dataSource = new ListView.DataSource({
-            rowHasChanged: (row1, row2) => row1 !== row2,
-        });
-
         this.state = {
-            dataSource: dataSource.cloneWithRows([]),
+            dataSource: [],
             loading: true,
             error: false,
         };
 
         this.moreOperation = this.moreOperation.bind(this);
-        this.renderRow = this.renderRow.bind(this);
         this.toKeepEgg = this.toKeepEgg.bind(this);
         this.toBuyChicken = this.toBuyChicken.bind(this);
         this.toProduction = this.toProduction.bind(this);
@@ -53,7 +48,7 @@ class MyAopted extends React.Component {
                 }
                 
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(dataStorage),
+                    dataSource: dataStorage,
                     loading: false,
                 })
             } catch(e) {
@@ -136,73 +131,75 @@ class MyAopted extends React.Component {
         </List>, { animationType: 'slide-up', maskProps, maskClosable: false });
     }
 
-    renderRow(rowData, sectionID, rowID) {
-        const { cname, cid, restDays, age, eggnum, state, adoptDays } = rowData;
-        
-        return(
-            <Flex key={rowID} className={styles['chicken-item']}>
-                <span style={{width: '30%'}} onClick={() => this.toProduction(cid, cname)}>{cname}</span>
-                <span style={{width: '25%'}}>{ eggnum ? <Icon type="check" /> : ''}</span>
-                <span style={{width: '20%'}}>{age}天</span>
-                {  state === 4 ? <span style={{width: '25%', color: '#d22'}} >
-                    死亡
-                </span> : <span style={{width: '25%'}} className={styles['more']}>
-                    {restDays}天
-                    <Icon type="down" size="xs" className={styles['more-icon']} onClick={() => this.moreOperation(rowData)}/>
-                </span> }
-            </Flex>
-        )
-    };
-
     render() {
         const { state } = this.props.location;
         const { dataSource, loading, error } = this.state;
-        let bodyComponent = null;
+        const headerComponent = <div>
+            <WhiteSpace size='lg'/>
+            <WingBlank className={styles['public-header']}>
+                <sapn onClick={() => this.props.history.goBack()} className={styles['back-icon']}><Icon type="left" /></sapn>
+                <span>我的认养</span>
+                <span></span>
+            </WingBlank>
+            <WhiteSpace size='lg'/>
+            <WingBlank>
+                <Icon type={require('../../asserts/icon/farm.svg')} className={styles['second-header-icon']}/>
+                <span className={styles['second-header']}>鸡场品牌：{(state && state.farmName) || '所有鸡场'}</span>
+            </WingBlank>
+            <WhiteSpace />
+        </div>;
         
         if(loading){
-            bodyComponent = <Loading tips='正在获取认养信息，请稍后...'/>
-        } else {
-            bodyComponent = error ? <Result
-                img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
-                title="获取失败"
-                message="网络错误，获取认养信息失败，请稍候再试！"
-            /> : (dataSource._cachedRowCount ? <div>
-                <Flex className={styles['table-header']}>
-                    <span style={{width: '30%'}}>认养鸡只</span>
-                    <span style={{width: '25%'}}>今日产蛋</span>
-                    <span style={{width: '20%'}}>日龄</span>
-                    <span style={{width: '25%'}}>剩余天数</span>
-                </Flex>
-                <ListView 
-                    dataSource={dataSource}
-                    renderRow={this.renderRow}
-                    pageSize={8}
-                    style={{height: clientHeight * 4 / 5}}
+            return <div className={styles['my-adopted-container']}>
+                { headerComponent }
+                <Loading tips='正在获取认养信息，请稍后...'/>
+           </div>;
+        }
+
+        if(error) {
+            return <div className={styles['my-adopted-container']}>
+                { headerComponent }
+                <Result
+                    img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
+                    title="获取失败"
+                    message="网络错误，获取认养信息失败，请稍候再试！"
                 />
-            </div> : <Result
-                img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
-                title="提示"
-                message="您还没有认养任何鸡只"
-            />)
+           </div>;
         }
         return (
             <div className={styles['my-adopted-container']}>
-                <div>
-                    <WhiteSpace size='lg'/>
-                    <WingBlank className={styles['public-header']}>
-                        <sapn onClick={() => this.props.history.goBack()} className={styles['back-icon']}><Icon type="left" /></sapn>
-                        <span>我的认养</span>
-                        <span></span>
-                    </WingBlank>
-                    <WhiteSpace size='lg'/>
-                    <WingBlank>
-                        <Icon type={require('../../asserts/icon/farm.svg')} className={styles['second-header-icon']}/>
-                        <span className={styles['second-header']}>鸡场品牌：{(state && state.farmName) || '所有鸡场'}</span>
-                    </WingBlank>
-                    <WhiteSpace />
-                </div>
+                { headerComponent }
 
-                { bodyComponent }
+                { dataSource.length ? <div>
+                    <Flex className={styles['table-header']}>
+                        <span style={{width: '30%'}}>认养鸡只</span>
+                        <span style={{width: '25%'}}>今日产蛋</span>
+                        <span style={{width: '20%'}}>日龄</span>
+                        <span style={{width: '25%'}}>剩余天数</span>
+                    </Flex>
+                    <div className={styles['table-body']} style={{height: clientHeight * 2 / 3}}>
+                        {
+                            dataSource.map(data => {
+                                const {cname, cid, restDays, age, eggnum, state, adoptDays} = data;
+                                return <Flex className={styles['chicken-item']}>
+                                    <span style={{width: '30%'}} onClick={() => this.toProduction(cid, cname)}>{cname}</span>
+                                    <span style={{width: '25%'}}>{ eggnum ? <Icon type="check" /> : ''}</span>
+                                    <span style={{width: '20%'}}>{age}天</span>
+                                    {  state === 4 ? <span style={{width: '25%', color: '#d22'}} >
+                                        死亡
+                                    </span> : <span style={{width: '25%'}} className={styles['more']}>
+                                        {restDays}天
+                                        <Icon type="down" size="xs" className={styles['more-icon']} onClick={() => this.moreOperation(data)}/>
+                                    </span> }
+                                </Flex>;
+                            })
+                        }
+                    </div>
+                </div> : <Result
+                    img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
+                    title="提示"
+                    message="您还没有认养任何鸡只"
+                /> }
             </div>
         );
     }

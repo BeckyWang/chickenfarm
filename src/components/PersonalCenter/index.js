@@ -55,7 +55,7 @@ class PersonalCenter extends React.Component {
         if(isIPhone) {
             (async () => {
                 try {
-                    const timestamp = +(new Date()).valueOf().toString().slice(0, 10);
+                    const timestamp = new Date().valueOf().toString().slice(0, 10);
                     const nonceStr = randomchar(32);
                     const {signature} = await getWXSignature({
                         timestamp, // 必填，生成签名的时间戳

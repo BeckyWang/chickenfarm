@@ -108,7 +108,7 @@ class EggList extends React.Component {
                     <span style={{width: '25%'}}>{buyer ? renderMobile(buyer) : ''}</span>
                 </Flex>)
             }
-        </div>
+            </div>
         </div>: <Result
             img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
             title="提示"

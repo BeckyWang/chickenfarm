@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { WingBlank, WhiteSpace, Flex, Result, Icon, ListView, Popup, List, Modal, Toast } from 'antd-mobile';
+import { WingBlank, WhiteSpace, Flex, Result, Icon, Popup, List, Modal, Toast } from 'antd-mobile';
 
 import { getAllMyFocused, getMyFocused, focusChicken } from '../../unit/fetch';
 import Loading from '../public/Loading';
@@ -33,18 +33,13 @@ class MyFocused extends React.Component {
     constructor() {
         super();
 
-        const dataSource = new ListView.DataSource({
-            rowHasChanged: (row1, row2) => row1 !== row2,
-        });
-
         this.state = {
-            dataSource: dataSource.cloneWithRows([]),
+            dataSource: [],
             loading: true,
             error: false,
         };
 
         this.moreOperation = this.moreOperation.bind(this);
-        this.renderRow = this.renderRow.bind(this);
     }
 
     componentWillMount() {
@@ -57,7 +52,7 @@ class MyFocused extends React.Component {
                     dataStorage = await getAllMyFocused();
                 }
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(dataStorage),
+                    dataSource: dataStorage,
                     loading: false,
                 })
             } catch(e) {
@@ -133,72 +128,71 @@ class MyFocused extends React.Component {
         </List>, { animationType: 'slide-up', maskProps, maskClosable: false });
     }
 
-    renderRow(rowData, sectionID, rowID) {
-        const { name, id, age, state, price, isAdopted } = rowData;
-
-        return(
-            <Flex key={rowID} className={styles['chicken-item']}>
-                <span style={{width: '30%'}} className={styles['more']}>
-                    <Link to={{pathname:`/weixin/cultivation/chicken/production/${id}`, state: {chickenName: name}}} style={{width: '70%'}} >{name}</Link>
-                    <Icon type="down" size="xs" className={styles['more-icon']} onClick={() => this.moreOperation(id, name, state, isAdopted)}/>
-                </span>
-                <span style={{width: '20%'}}>{age}天</span>
-                <span style={{width: '50%'}}>
-                    { CHICKEN_STATE[state] }
-                    { state === 2 &&  `（${price}元）`}
-                </span>
-            </Flex>
-        )
-    };
-
     render() {
         const { state } = this.props.location;
         const { dataSource, loading, error } = this.state;
-        let bodyComponent = null;
+        const headerComponent = <div>
+            <WhiteSpace size='lg'/>
+            <WingBlank className={styles['public-header']}>
+                <sapn onClick={() => this.props.history.goBack()} className={styles['back-icon']}><Icon type="left" /></sapn>
+                <span>我的关注</span>
+                <span></span>
+            </WingBlank>
+            <WhiteSpace size='lg'/>
+            <WingBlank>
+                <Icon type={require('../../asserts/icon/farm.svg')} className={styles['second-header-icon']}/>
+                <span className={styles['second-header']}>鸡场品牌：{(state && state.farmName) || '所有鸡场'}</span>
+            </WingBlank>
+            <WhiteSpace />
+        </div>;
 
         if(loading){
-            bodyComponent = <Loading tips='正在获取关注信息，请稍后...'/>
-        } else {
-            bodyComponent = error ? <Result
-                img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
-                title="获取失败"
-                message="网络错误，获取关注信息失败，请稍候再试！"
-            /> : (dataSource._cachedRowCount ? <div>
-                <Flex className={styles['table-header']}>
-                    <span style={{width: '30%'}}>关注鸡只</span>
-                    <span style={{width: '20%'}}>日龄</span>
-                    <span style={{width: '50%'}}>当前状态</span>
-                </Flex>
-                <ListView 
-                    dataSource={dataSource}
-                    renderRow={this.renderRow}
-                    pageSize={8}
-                    style={{height: clientHeight * 4 / 5}}
-                />
-            </div> : <Result
-                img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
-                title="提示"
-                message="您还没有关注任何鸡只"
-            />)
+            return <div className={styles['my-focused-container']}>
+                { headerComponent }
+                <Loading tips='正在获取关注信息，请稍后...'/>
+            </div>;
         }
+
+        if(error) {
+            return <div className={styles['my-focused-container']}>
+                { headerComponent }
+                <Result
+                    img={<Icon type="cross-circle-o" style={{ fill: '#F13642' }} className={styles['error-tip']}/>}
+                    title="获取失败"
+                    message="网络错误，获取关注信息失败，请稍候再试！"
+                />
+            </div>;
+        }
+
         return (
             <div className={styles['my-focused-container']}>
-                <div>
-                    <WhiteSpace size='lg'/>
-                    <WingBlank className={styles['public-header']}>
-                        <sapn onClick={() => this.props.history.goBack()} className={styles['back-icon']}><Icon type="left" /></sapn>
-                        <span>我的关注</span>
-                        <span></span>
-                    </WingBlank>
-                    <WhiteSpace size='lg'/>
-                    <WingBlank>
-                        <Icon type={require('../../asserts/icon/farm.svg')} className={styles['second-header-icon']}/>
-                        <span className={styles['second-header']}>鸡场品牌：{(state && state.farmName) || '所有鸡场'}</span>
-                    </WingBlank>
-                    <WhiteSpace />
-                </div>
-
-                { bodyComponent }
+                { headerComponent }
+                { dataSource.length ? <div>
+                    <Flex className={styles['table-header']}>
+                        <span style={{width: '30%'}}>关注鸡只</span>
+                        <span style={{width: '20%'}}>日龄</span>
+                        <span style={{width: '50%'}}>当前状态</span>
+                    </Flex>
+                    <div className={styles['table-body']} style={{height: clientHeight * 2 / 3}}>
+                        {
+                            dataSource.map(({name, id, age, state, price, isAdopted}) => <Flex className={styles['chicken-item']}>
+                                <span style={{width: '30%'}} className={styles['more']}>
+                                    <Link to={{pathname:`/weixin/cultivation/chicken/production/${id}`, state: {chickenName: name}}} style={{width: '70%'}} >{name}</Link>
+                                    <Icon type="down" size="xs" className={styles['more-icon']} onClick={() => this.moreOperation(id, name, state, isAdopted)}/>
+                                </span>
+                                <span style={{width: '20%'}}>{age}天</span>
+                                <span style={{width: '50%'}}>
+                                    { CHICKEN_STATE[state] }
+                                    { state === 2 &&  `（${price}元）`}
+                                </span>
+                            </Flex>)
+                        }
+                    </div>
+                </div> : <Result
+                    img={<Icon type={require('../../asserts/icon/info-red.svg')} className={styles['error-tip']}/>}
+                    title="提示"
+                    message="您还没有关注任何鸡只"
+                /> }
             </div>
         );
     }

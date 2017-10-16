@@ -286,3 +286,7 @@ export function getWXSignature(config) {
 export function queryVideo(name) {
     return executeFetch(`${address.video}/${name}/exist`);
 }
+
+export function queryChickenFarmVideo(farmId) {
+    return executeFetch(`${address.video}/farms/${farmId}/exist`);
+}

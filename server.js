@@ -1430,7 +1430,7 @@ router
     //视频是否存在
     .get('/video/farms/:farmId/exist', cxt => {
         cxt.body = {
-            status: fs.existsSync(`./video/${cxt.params.farmId}.mp4`)
+            status: fs.existsSync(`./video/farms/${cxt.params.farmId}.mp4`)
         }
     })
     //视频是否存在
@@ -1463,7 +1463,7 @@ app
 
 client.on('ready', function(err) {
     http.createServer(function(req, res) {
-        if(/video\/\w{11}$/.test(req.url) || /video\/farms\/\w+$/.test(req.url)) {
+        if(/video\/\w{11}$/.test(req.url) || /video\/farms\/[0-9]+$/.test(req.url)) {
             const path = '.' + req.url + '.mp4';
             if(fs.existsSync(path)) {
                 const stat = fs.statSync(path);

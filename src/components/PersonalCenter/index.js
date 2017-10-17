@@ -70,7 +70,7 @@ class PersonalCenter extends React.Component {
                         timestamp, // 必填，生成签名的时间戳
                         nonceStr, // 必填，生成签名的随机串
                         signature,// 必填，签名，见附录1
-                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                     });
 
                     wx.ready(() => {
